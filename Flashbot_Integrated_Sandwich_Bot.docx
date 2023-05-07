@@ -1,0 +1,54 @@
+SANDWICH-FLASHBOT BOT TECHNICAL MILESTONES PLAN
+
+Intro:-
+The MEV sandwich bot is a tool that leverages the flashbots MEV concept to carry out a sandwich attack. This attack involves placing two transactions around a target transaction, effectively blocking it from being executed by other market participants. By integrating with flashbots, the sandwich bot can send its transactions directly to miners.
+To incentivize miners to include its transactions, the sandwich bot offers a bribe in the form of an additional fee. This fee is typically higher than the regular transaction fee and compensates miners for the additional risk they take by including the transaction in their block. By offering a bribe, the sandwich bot increases the probability of its transactions being included in the block and the likelihood of a successful sandwich attack.
+
+Milestone 1: Authentication and Configuration (Done And Delivered)
+Develop an authentication system to prevent unauthorized access to the bot.
+Allow configuration of parameters such as the address of the DEXs, trading pair, token to use for the sandwich attack, the amount of the token to use for the attack, the minimum amount of the target token to receive, time interval between attacks, and maximum number of attacks per day.
+Implement the ability to store configuration data and validate inputs.
+
+
+Milestone 2: Token Tracking and Data Collection (Done And Delivered)
+Develop a system to track newly added tokens/coins to the pool on multiple DEXs such as SushiSwap, Uniswap, Shiba, PancakeSwap, etc.
+Extract raw transactions, pending transactions, and successful transactions on testnet and mainnet for the newly added and traced token pools on individual DEXs.
+Constantly find the price change, total liquidity value, and other important transactional data around these newly traced pools and tokens.
+
+Milestone 3: Trading Strategy (Done And Delivered)
+Research and identify the most suitable MEV flashbot service providers for the sandwich attack strategy.
+Configure the bot to interact with the selected MEV flashbot providers' API to send transactions and receive bundle proposals.
+Analyze the flashbot bundle proposals to determine the optimal transaction sequence for executing the sandwich attack strategy with the highest probability of success.
+Implement the bribe to miner functionality to increase the chances of the flashbot bundle being included in the next block and to prioritize the execution of the sandwich attack over other pending transactions.
+
+Milestone 4: Risk Management (Done And Delivered)
+Develop a risk management strategy for the bot that takes into account the potential risks associated with using MEV flashbots and bribing miners, such as increased transaction costs and the possibility of failed transactions.
+Implement a fail-safe mechanism that can detect when the bot is experiencing abnormal or unexpected behavior, such as a large increase in gas prices or an unexpected drop in liquidity, and trigger the stop-loss mechanism to prevent excessive losses.
+Conduct thorough testing and simulations to ensure that the bot can handle unexpected scenarios and that the risk management mechanisms are functioning correctly.
+
+
+Follow the given steps for the sandwich attack:
+Identify a token with low liquidity that is being traded on a DEX.
+Submit a large buy order for the token at a low price, which will cause the price to rise.
+Submit a large sell order for the token at a high price, which will cause the price to drop.
+Wait for other traders to place buy and sell orders in between your two orders.
+Once the other orders have been placed, cancel your buy and sell orders.
+Place a new buy order at a low price, which will fill the orders placed by other traders at a lower price.
+Place a new sell order at a high price, which will fill the orders placed by other traders at a higher price.
+Profit from the price difference between the orders you filled and the orders you placed.
+
+
+Let’s understand Sandwich Attack using a practical example:
+Let us assume that Bob is swapping ETH for MATIC from a Uniswap pool. Now, an attacker monitors his transaction by scanning the mempool, and when he finds his transaction and he immediately places two orders.
+Attacker’s 1st Txn: Swapping ETH for MATIC paying higher gas fees
+Attacker’s 2nd Txn: Swapping back MATIC for ETH paying lower gas fees
+First, the attacker will front-run Alice’s transaction with the same swap (swapping ETH for MATIC) and thus increasing the price of MATIC.
+Now, after the price is increased Alice’s transaction is executed and she ends up paying more ETH for MATIC with higher price slippage.
+Once the victim’s transaction is executed, the attacker will swap his MATIC back to ETH and make a profit.
+
+How to prevent these Attacks?
+There are a few ways in which front-running attacks can be prevented. Some of them are mentioned below:
+1. Keep maximum slippage low: Keep maximum slippage low, around 0.5%-2%, to fend off front runners. When placing a large order, keep your slippage at the lower keel. Front runners want you to keep slippage high, so better to do just the opposite of it.
+2. Transaction Counter: In many, if not most cases, the attacker’s aim is to inconspicuously send a transaction before the victim’s transaction is executed. So, to prevent this, you can utilize a transaction counter within your smart contract. Whenever a state-modifying transaction occurs in your smart contract, increment a universal transaction counter by one.
+3. Off-Chain Ordering: Off-chain ordering implies two steps: ordering (done, of course, not on the blockchain) and settlement (done on the blockchain). Whoever is implementing the ordering solution has the liberty of choosing from a huge list of potential platforms to build on. They can leverage features of those systems that blockchains may not have, such as time-stamped messages, free messages, and higher throughput.
+4. Limit the gas price: This method to mitigate front-running also requires very little overhead (which saves your users on gas costs). In Solidity, one could make a modifier called gasThrottle, which checks that the gas cost for the transaction making the function call (via tx.gasPrice) is less than or equal to some amount which we’ll call MAX_GAS_PRICE.
