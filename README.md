@@ -4,3 +4,9 @@ To incentivize miners to include its transactions, the sandwich bot offers a bri
 
 ## Doc
 [Flashbot_Integrated_Sandwich_Bot](https://docs.google.com/document/d/1AhXBM9jTM-cKELirx7YHAX_8OCF8raVEeKWCCByQtg0/edit#)
+
+## Transaction Receipts
+FrontRun Tx:- [FrontRun Tx Receipt](https://etherscan.io/tx/0x1d94b94608a46cc42b661a15885c87f8260a4a80c131e6165f693020f765e26b)
+
+BackRun Tx:- [BackRun Tx Receipt](https://etherscan.io/tx/0x193fb4d7ac1bdefa19b557e22802811091f1477489d3735e8431dd280d3758e4)
+
