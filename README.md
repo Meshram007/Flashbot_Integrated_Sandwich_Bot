@@ -23,7 +23,7 @@ Screenshot from VSCode:-
 
 
 ## Contact Info:-
-Email :- blocksway4@gmail.com
+Email :- blocksway.info@gmail.com
 Telegram :- @BlocksWay
 
 
